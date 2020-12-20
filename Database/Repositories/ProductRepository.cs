@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using shop_backend.Database.Entities;
+using shop_backend.Database.Entities.Enums;
 using shop_backend.Database.Repositories.Interfaces;
 using shop_backend.Services.Interfaces;
 using shop_backend.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace shop_backend.Database.Repositories
@@ -19,9 +21,41 @@ namespace shop_backend.Database.Repositories
             this.imageService = imageService;
         }
 
-        public async Task<List<Product>> GetAllAsync() 
+        public async Task<List<Product>> GetAllAsync(string search, string type, string manufacturer,
+            bool isOnDiscount, int? priceMin , int? priceMax, SortType? sortType) 
         {
-            return await context.Products.ToListAsync();
+            IQueryable<Product> result = sortType switch
+            {
+                SortType.nameAscending => context.Products.OrderBy(p => p.Name),
+                SortType.quantityAscending => context.Products.OrderBy(p => p.Quantity),
+                SortType.priceAscending => context.Products.OrderBy(p => p.Price),
+                SortType.quantityDescending => context.Products.OrderByDescending(p => p.Quantity),
+                SortType.priceDescending => context.Products.OrderByDescending(p => p.Price),
+                _ => context.Products.OrderByDescending(p => p.Name),
+            };
+
+            if (priceMin != null && priceMax != null )
+                result = result.Where(p => p.Price >= priceMin && p.Price <= priceMax);
+
+            if (manufacturer != null)
+                result = result.Where(p => p.Manufacturer == manufacturer);
+
+            if (isOnDiscount)
+                result = result.Where(p => p.IsOnDiscount);
+
+            if (type != null)
+                result = result.Where(p => p.Type == type);
+
+            if (search !=null)
+            {
+                result = result.Where(p => p.Name.Contains(search));
+                result = result.Where(p => p.Type.Contains(search));
+                result = result.Where(p => p.Manufacturer.Contains(search));
+                result = result.Where(p => p.Description.Contains(search));
+            }
+
+
+            return await result.ToListAsync();
         }
 
         public async Task<Product> GetByIdAsync(int id)

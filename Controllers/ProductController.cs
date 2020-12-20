@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using shop_backend.Database.Entities.Enums;
 using shop_backend.Database.Repositories.Interfaces;
 using shop_backend.ViewModels;
 using System.Collections.Generic;
@@ -24,9 +25,10 @@ namespace shop_backend.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesErrorResponseType(typeof(void))]
-        public async Task<ActionResult<IEnumerable<GetProductViewModel>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<GetProductViewModel>>> GetProducts(string search, string type, string manufacturer,
+            bool isOnDiscount, int? priceMin, int? priceMax, SortType? sortType)
         {
-            var products = await productRespository.GetAllAsync();
+            var products = await productRespository.GetAllAsync(search,type,manufacturer,isOnDiscount,priceMin,priceMax,sortType);
 
             return Ok(products.Select(p => new GetProductViewModel(p)));
         }
