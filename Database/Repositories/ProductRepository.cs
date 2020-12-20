@@ -29,21 +29,22 @@ namespace shop_backend.Database.Repositories
             return await context.Products.SingleOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task CreateAsync(CreateProductViewModel createProductViewModel)
+        public async Task<Product> CreateAsync(CreateProductViewModel createProductViewModel)
         {
             var product = createProductViewModel.MapToEntity();
 
             if(createProductViewModel.FirstImage != null)
-                product.FirstImage = await imageService.SaveFileAsync(createProductViewModel.FirstImage);
+                product.FirstImage = await imageService.SaveImageAsync(createProductViewModel.FirstImage);
 
             if (createProductViewModel.SecondImage != null)
-                product.SecondImage = await imageService.SaveFileAsync(createProductViewModel.SecondImage);
+                product.SecondImage = await imageService.SaveImageAsync(createProductViewModel.SecondImage);
 
             if (createProductViewModel.ThirdImage != null)
-                product.ThirdImage = await imageService.SaveFileAsync(createProductViewModel.ThirdImage);
+                product.ThirdImage = await imageService.SaveImageAsync(createProductViewModel.ThirdImage);
 
             context.Add(product);
             await context.SaveChangesAsync();
+            return product;
         }
 
         public async Task DeleteAsync(int id)
@@ -62,7 +63,7 @@ namespace shop_backend.Database.Repositories
                 if(product.FirstImage != null)
                     imageService.DeleteFile(product.FirstImage);
 
-                product.FirstImage = await imageService.SaveFileAsync(updateProductViewModel.FirstImage);
+                product.FirstImage = await imageService.SaveImageAsync(updateProductViewModel.FirstImage);
             }
 
             if (updateProductViewModel.SecondImage != null)
@@ -70,7 +71,7 @@ namespace shop_backend.Database.Repositories
                 if (product.SecondImage != null)
                     imageService.DeleteFile(product.SecondImage);
 
-                product.SecondImage = await imageService.SaveFileAsync(updateProductViewModel.SecondImage);
+                product.SecondImage = await imageService.SaveImageAsync(updateProductViewModel.SecondImage);
             }
 
             if (updateProductViewModel.ThirdImage != null)
@@ -78,7 +79,7 @@ namespace shop_backend.Database.Repositories
                 if (product.ThirdImage != null)
                     imageService.DeleteFile(product.ThirdImage);
 
-                product.ThirdImage = await imageService.SaveFileAsync(updateProductViewModel.ThirdImage);
+                product.ThirdImage = await imageService.SaveImageAsync(updateProductViewModel.ThirdImage);
             }
 
             product.Name = updateProductViewModel.Name;

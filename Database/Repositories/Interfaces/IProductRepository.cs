@@ -9,7 +9,7 @@ namespace shop_backend.Database.Repositories.Interfaces
     {
         Task<List<Product>> GetAllAsync();
         Task<Product> GetByIdAsync(int id);
-        Task CreateAsync(CreateProductViewModel createProductViewModel);
+        Task<Product> CreateAsync(CreateProductViewModel createProductViewModel);
         Task DeleteAsync(int id);
         Task UpdateAsync(int id, UpdateProductViewModel updateProductViewModel);
     }

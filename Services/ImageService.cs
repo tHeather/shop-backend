@@ -11,7 +11,7 @@ namespace shop_backend.Services
     {
         private readonly string filesRootFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
 
-        public async Task<string> SaveFileAsync(IFormFile formFile)
+        public async Task<string> SaveImageAsync(IFormFile formFile)
         {
             var fileExtension = formFile.ContentType.Split('/').Skip(1).ToArray()[0];
             var fileName = $"{Guid.NewGuid()}.{fileExtension}";
@@ -28,6 +28,23 @@ namespace shop_backend.Services
         {
             var fullPath = Path.Combine(filesRootFolderPath, fileName);
             File.Delete(fullPath);
+        }
+
+        public async Task UpdateLogoAsync(IFormFile formFile) 
+        {
+            var fileExtension = formFile.ContentType.Split('/').Skip(1).ToArray()[0];
+            var fileName = $"logo.{fileExtension}";
+            var logoPath = Path.Combine(filesRootFolderPath, fileName);
+
+            if(File.Exists(logoPath))
+            {
+                File.Delete(logoPath);
+            }
+
+            using (var stream = new FileStream(logoPath, FileMode.Create))
+            {
+                await formFile.CopyToAsync(stream);
+            }
         }
     }
 }
