@@ -58,7 +58,7 @@ namespace shop_backend.Controllers
             return Created("GetProductById",product);
         }
 
-        [HttpDelete("${id}")]
+        [HttpDelete("{id}")]
         [Authorize(Roles = "Admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -70,7 +70,7 @@ namespace shop_backend.Controllers
             return NoContent();
         }
 
-        [HttpPut("${id}")]
+        [HttpPut("{id}")]
         [Authorize(Roles = "Admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
