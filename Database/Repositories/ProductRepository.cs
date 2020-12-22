@@ -88,7 +88,7 @@ namespace shop_backend.Database.Repositories
             await context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(int id,UpdateProductViewModel updateProductViewModel)
+        public async Task<Product> UpdateAsync(int id,UpdateProductViewModel updateProductViewModel)
         {
             var product = await context.Products.SingleOrDefaultAsync(p => p.Id == id);
 
@@ -126,6 +126,8 @@ namespace shop_backend.Database.Repositories
             product.DiscountPrice = updateProductViewModel.DiscountPrice;
 
             await context.SaveChangesAsync();
+
+            return product;
         }
     }
 }

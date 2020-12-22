@@ -78,9 +78,9 @@ namespace shop_backend.Controllers
         [ProducesErrorResponseType(typeof(void))]
         public async Task<ActionResult> UpdateProduct(int id, [FromForm]UpdateProductViewModel updateProductViewModel)
         {
-            await productRespository.UpdateAsync(id,updateProductViewModel);
+            var product = await productRespository.UpdateAsync(id,updateProductViewModel);
 
-            return NoContent();
+            return Ok(new GetProductViewModel(product));
         }
     }
 }

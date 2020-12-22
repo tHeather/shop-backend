@@ -13,6 +13,6 @@ namespace shop_backend.Database.Repositories.Interfaces
         Task<Product> GetByIdAsync(int id);
         Task<Product> CreateAsync(CreateProductViewModel createProductViewModel);
         Task DeleteAsync(int id);
-        Task UpdateAsync(int id, UpdateProductViewModel updateProductViewModel);
+        Task<Product> UpdateAsync(int id, UpdateProductViewModel updateProductViewModel);
     }
 }
