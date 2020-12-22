@@ -46,12 +46,14 @@ namespace shop_backend.Database.Repositories
             if (type != null)
                 result = result.Where(p => p.Type == type);
 
-            if (search !=null)
+            if (search != null)
             {
-                result = result.Where(p => p.Name.Contains(search));
-                result = result.Where(p => p.Type.Contains(search));
-                result = result.Where(p => p.Manufacturer.Contains(search));
-                result = result.Where(p => p.Description.Contains(search));
+                var upperCaseSearch = search.ToUpper();
+                result = result.Where(p =>
+                    p.Name.ToUpper().Contains(upperCaseSearch) ||
+                    p.Type.ToUpper().Contains(upperCaseSearch) ||
+                    p.Manufacturer.ToUpper().Contains(upperCaseSearch) ||
+                    p.Description.ToUpper().Contains(upperCaseSearch));
             }
 
 
