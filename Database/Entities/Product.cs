@@ -1,4 +1,4 @@
-namespace ShopBackend.BusinessLogic.Entities
+namespace shop_backend.Database.Entities
 {
     public class Product 
     {

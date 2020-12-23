@@ -1,12 +1,17 @@
-﻿namespace ShopBackend.BusinessLogic.Entities.Enums
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace shop_backend.Database.Entities.Enums
 {
     public enum SortType
     {
-        NameAscending,
-        QuantityAscending,
-        PriceAscending,
-        NameDescending,
-        QuantityDescending,
-        PriceDescending,
+        nameAscending,
+        quantityAscending,
+        priceAscending,
+        nameDescending,
+        quantityDescending,
+        priceDescending,
     }
 }

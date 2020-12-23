@@ -1,15 +1,14 @@
 using Microsoft.EntityFrameworkCore;
-using ShopBackend.BusinessLogic.Database;
-using ShopBackend.BusinessLogic.Entities;
-using ShopBackend.BusinessLogic.Entities.Enums;
-using ShopBackend.BusinessLogic.Repositories.Interfaces;
-using ShopBackend.BusinessLogic.Services.Interfaces;
-using ShopBackend.BusinessLogic.ViewModels;
+using shop_backend.Database.Entities;
+using shop_backend.Database.Entities.Enums;
+using shop_backend.Database.Repositories.Interfaces;
+using shop_backend.Services.Interfaces;
+using shop_backend.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopBackend.BusinessLogic.Repositories
+namespace shop_backend.Database.Repositories
 {
     public class ProductRepository : IProductRepository
     {
@@ -27,11 +26,11 @@ namespace ShopBackend.BusinessLogic.Repositories
         {
             IQueryable<Product> result = sortType switch
             {
-                SortType.NameAscending => context.Products.OrderBy(p => p.Name),
-                SortType.QuantityAscending => context.Products.OrderBy(p => p.Quantity),
-                SortType.PriceAscending => context.Products.OrderBy(p => p.Price),
-                SortType.QuantityDescending => context.Products.OrderByDescending(p => p.Quantity),
-                SortType.PriceDescending => context.Products.OrderByDescending(p => p.Price),
+                SortType.nameAscending => context.Products.OrderBy(p => p.Name),
+                SortType.quantityAscending => context.Products.OrderBy(p => p.Quantity),
+                SortType.priceAscending => context.Products.OrderBy(p => p.Price),
+                SortType.quantityDescending => context.Products.OrderByDescending(p => p.Quantity),
+                SortType.priceDescending => context.Products.OrderByDescending(p => p.Price),
                 _ => context.Products.OrderByDescending(p => p.Name),
             };
 
@@ -91,7 +90,7 @@ namespace ShopBackend.BusinessLogic.Repositories
             await context.SaveChangesAsync();
         }
 
-        public async Task<Product> UpdateAsync(int id, UpdateProductViewModel updateProductViewModel)
+        public async Task<Product> UpdateAsync(int id,UpdateProductViewModel updateProductViewModel)
         {
             var product = await context.Products.SingleOrDefaultAsync(p => p.Id == id);
 
