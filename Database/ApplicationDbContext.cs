@@ -1,19 +1,28 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using shop_backend.Database.Entities;
+using ShopBackend.BusinessLogic.Entities;
 using System.Diagnostics.CodeAnalysis;
 
 
-namespace shop_backend.Database
+namespace ShopBackend.BusinessLogic.Database
 {
     public class ApplicationDbContext: IdentityDbContext<User>
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Theme> Themes { get; set; }
 
+        public ApplicationDbContext()
+        {
+        }
+
         public ApplicationDbContext([NotNull] DbContextOptions<ApplicationDbContext> options) : base(options)
         {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer();
+            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

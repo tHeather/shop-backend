@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using shop_backend.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ShopBackend.BusinessLogic.Entites.Enums;
 
-namespace shop_backend.Database.Entities
+namespace ShopBackend.BusinessLogic.Entities
 {
     public class User : IdentityUser
     {

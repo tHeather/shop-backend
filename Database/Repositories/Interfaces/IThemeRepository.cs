@@ -1,11 +1,8 @@
-﻿using shop_backend.Database.Entities;
-using shop_backend.ViewModels.Theme;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using ShopBackend.BusinessLogic.Entities;
+using ShopBackend.BusinessLogic.ViewModels;
 using System.Threading.Tasks;
 
-namespace shop_backend.Database.Repositories.Interfaces
+namespace ShopBackend.BusinessLogic.Repositories.Interfaces
 {
     public interface IThemeRepository
     {
