@@ -128,8 +128,6 @@ namespace shop_backend.Database.Repositories
             product.DiscountPrice = updateProductViewModel.DiscountPrice;
 
             await context.SaveChangesAsync();
-
-            return product;
         }
 
         public async Task SaveChangesAsync()
