@@ -24,11 +24,11 @@ namespace shop_backend.ViewModels
         public string Description { get; set; }
 
         [Required]
-        [Range(0,200)]
+        [Range(0, 10000)]
         public int Quantity { get; set; }
 
         [Required]
-        [Range(1, 999999)]
+        [Range(1, 1000000)]
         public int Price { get; set; }
 
         [Required]
