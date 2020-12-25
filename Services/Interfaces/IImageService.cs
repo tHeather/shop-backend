@@ -5,6 +5,7 @@ namespace shop_backend.Services.Interfaces
 {
     public interface IImageService 
     {
+        bool ImageExists(string fileName);
         Task<string> SaveImageAsync(IFormFile formFile);
         void DeleteFile(string fileName);
         Task UpdateLogoAsync(IFormFile formFile);

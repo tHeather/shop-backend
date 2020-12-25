@@ -11,6 +11,12 @@ namespace shop_backend.Services
     {
         private readonly string filesRootFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
 
+        public bool ImageExists(string fileName)
+        {
+            var filePath = Path.Combine(filesRootFolderPath, fileName);
+            return File.Exists(filePath);
+        }
+
         public async Task<string> SaveImageAsync(IFormFile formFile)
         {
             var fileExtension = formFile.ContentType.Split('/').Skip(1).ToArray()[0];

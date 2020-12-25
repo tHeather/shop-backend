@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using shop_backend.Database.Entities.Enums;
 using shop_backend.Database.Repositories.Interfaces;
+using shop_backend.Services.Interfaces;
 using shop_backend.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,12 @@ namespace shop_backend.Controllers
     public class ProductController : ControllerBase 
     {
         private readonly IProductRepository productRespository;
+        private readonly IImageService imageService;
 
-        public ProductController(IProductRepository productRespository)
+        public ProductController(IProductRepository productRespository, IImageService imageService)
         {
             this.productRespository = productRespository;
+            this.imageService = imageService;
         }
 
         [HttpGet]
@@ -76,11 +79,34 @@ namespace shop_backend.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ValidationErrors), StatusCodes.Status400BadRequest)]
         [ProducesErrorResponseType(typeof(void))]
-        public async Task<ActionResult> UpdateProduct(int id, [FromForm]UpdateProductViewModel updateProductViewModel)
+        public async Task<ActionResult<GetProductViewModel>> UpdateProduct(int id, [FromForm]UpdateProductViewModel updateProductViewModel)
         {
             var product = await productRespository.UpdateAsync(id,updateProductViewModel);
 
             return Ok(new GetProductViewModel(product));
+        }
+
+        [HttpDelete("{id:int}/images{image}")]
+        public async Task<ActionResult> DeleteImage(int id, string image)
+        {
+            var product = await productRespository.GetByIdAsync(id);
+            if (product.FirstImage != image && product.SecondImage != image && product.ThirdImage != image)
+                return BadRequest(new ValidationErrors("Image not found"));
+
+            if (!imageService.ImageExists(image))
+                return BadRequest(new ValidationErrors("Image not found"));
+
+            if (product.FirstImage == image)
+                product.FirstImage = null;
+            else if (product.SecondImage == image)
+                product.SecondImage = null;
+            else if (product.ThirdImage == image)
+                product.ThirdImage = null;
+
+            imageService.DeleteFile(image);
+            await productRespository.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

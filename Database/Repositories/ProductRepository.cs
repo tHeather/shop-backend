@@ -131,5 +131,10 @@ namespace shop_backend.Database.Repositories
 
             return product;
         }
+
+        public async Task SaveChangesAsync()
+        {
+            await context.SaveChangesAsync();
+        }
     }
 }
