@@ -6,7 +6,9 @@ using shop_backend.Database.Entities.Enums;
 using shop_backend.Database.Repositories.Interfaces;
 using shop_backend.Services.Interfaces;
 using shop_backend.ViewModels;
+using StudyOnlineServer.ViewModels;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,12 +30,18 @@ namespace shop_backend.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesErrorResponseType(typeof(void))]
-        public async Task<ActionResult<IEnumerable<GetProductViewModel>>> GetProducts(string search, string type, string manufacturer,
+        public async Task<ActionResult<PagedResult<GetProductViewModel>>> GetProducts([Required]int pageNumber, string search, string type, string manufacturer,
             bool isOnDiscount, int? priceMin, int? priceMax, SortType? sortType)
         {
-            var products = await productRespository.GetAllAsync(search,type,manufacturer,isOnDiscount,priceMin,priceMax,sortType);
+            var products = await productRespository.GetAllAsync(pageNumber, search, type, manufacturer, isOnDiscount, priceMin, priceMax, sortType);
 
-            return Ok(products.Select(p => new GetProductViewModel(p)));
+            return Ok(new PagedResult<GetProductViewModel>
+            {
+                Result = products.Select(p => new GetProductViewModel(p)),
+                CurrentPage = products.CurrentPage,
+                TotalPages = products.TotalPages,
+                HasNext = products.HasNext
+            });
         }
 
         [HttpGet("{id:int}", Name = "GetProductById")]
@@ -81,7 +89,11 @@ namespace shop_backend.Controllers
         [ProducesErrorResponseType(typeof(void))]
         public async Task<ActionResult<GetProductViewModel>> UpdateProduct(int id, [FromForm]UpdateProductViewModel updateProductViewModel)
         {
-            var product = await productRespository.UpdateAsync(id,updateProductViewModel);
+            var product = await productRespository.GetByIdAsync(id);
+            if (product == null)
+                return BadRequest(new ValidationErrors("Product not found"));
+
+            await productRespository.UpdateAsync(product, updateProductViewModel);
 
             return Ok(new GetProductViewModel(product));
         }

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using shop_backend.Database.Entities;
 using shop_backend.Database.Entities.Enums;
+using shop_backend.Database.Helpers;
 using shop_backend.Database.Repositories.Interfaces;
 using shop_backend.Services.Interfaces;
 using shop_backend.ViewModels;
@@ -12,6 +13,7 @@ namespace shop_backend.Database.Repositories
 {
     public class ProductRepository : IProductRepository
     {
+        private static int pageSize = 10;
         private readonly ApplicationDbContext context;
         private readonly IImageService imageService;
 
@@ -21,7 +23,7 @@ namespace shop_backend.Database.Repositories
             this.imageService = imageService;
         }
 
-        public async Task<List<Product>> GetAllAsync(string search, string type, string manufacturer,
+        public async Task<PagedList<Product>> GetAllAsync(int pageNumber, string search, string type, string manufacturer,
             bool isOnDiscount, int? priceMin , int? priceMax, SortType? sortType) 
         {
             IQueryable<Product> result = sortType switch
@@ -57,7 +59,7 @@ namespace shop_backend.Database.Repositories
             }
 
 
-            return await result.ToListAsync();
+            return await PagedList<Product>.Create(result, pageNumber, pageSize);
         }
 
         public async Task<Product> GetByIdAsync(int id)
@@ -90,10 +92,8 @@ namespace shop_backend.Database.Repositories
             await context.SaveChangesAsync();
         }
 
-        public async Task<Product> UpdateAsync(int id,UpdateProductViewModel updateProductViewModel)
+        public async Task UpdateAsync(Product product, UpdateProductViewModel updateProductViewModel)
         {
-            var product = await context.Products.SingleOrDefaultAsync(p => p.Id == id);
-
             if(updateProductViewModel.FirstImage != null)
             {
                 if(product.FirstImage != null)
