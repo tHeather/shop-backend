@@ -97,7 +97,7 @@ namespace shop_backend
                     };
                 });
 
-            services.AddIdentityCore<User>(opt =>
+            services.AddIdentityCore<IdentityUser>(opt =>
                 {
                     opt.Password.RequireDigit = true;
                     opt.Password.RequiredLength = 8;
@@ -114,7 +114,7 @@ namespace shop_backend
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders()
-                .AddSignInManager<SignInManager<User>>();
+                .AddSignInManager<SignInManager<IdentityUser>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

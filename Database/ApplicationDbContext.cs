@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace shop_backend.Database
 {
-    public class ApplicationDbContext: IdentityDbContext<User>
+    public class ApplicationDbContext: IdentityDbContext<IdentityUser>
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Theme> Themes { get; set; }
@@ -23,6 +23,15 @@ namespace shop_backend.Database
                 LeadingColor = "#002137",
                 SecondaryColor = "#2137ff",
                 TertiaryColor = "#ff2137"
+            });
+
+            builder.Entity<IdentityUser>().HasData(new IdentityUser
+            {
+                Email = "admin@test.pl",
+                NormalizedEmail = "ADMIN@TEST.PL",
+                UserName = "admin@test.pl",
+                NormalizedUserName = "ADMIN@TEST.PL",
+                PasswordHash = "AQAAAAEAACcQAAAAEOYBeJPoRPDerQ65Eyj6pmLGeMTpwjMPKvtmAKI8bbn0eykfamwp5dlh+h2mlcTyBw==", //Qwerty!2345
             });
 
             base.OnModelCreating(builder);

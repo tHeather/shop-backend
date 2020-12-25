@@ -58,7 +58,7 @@ namespace shop_backend.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ValidationErrors), StatusCodes.Status400BadRequest)]
         [ProducesErrorResponseType(typeof(void))]
@@ -70,7 +70,7 @@ namespace shop_backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesErrorResponseType(typeof(void))]
@@ -82,7 +82,7 @@ namespace shop_backend.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ValidationErrors), StatusCodes.Status400BadRequest)]

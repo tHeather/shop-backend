@@ -1,15 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using shop_backend.Enums;
+﻿using Microsoft.AspNetCore.Mvc;
 using shop_backend.Services.Interfaces;
 using shop_backend.Services.ReturnObjects;
 using shop_backend.ViewModels;
 using shop_backend.ViewModels.Auth;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace shop_backend.Controllers
@@ -34,17 +27,5 @@ namespace shop_backend.Controllers
 
             return result.AuthData;
         }
-
-        [HttpPost("register")]
-        public async Task<ActionResult<AuthData>> Register(LoginViewModel loginViewModel)
-        {
-            var result = await authService.RegisterAsync(loginViewModel.Email, loginViewModel.Password);
-
-            if (!result.Succeeded)
-                return BadRequest(new ValidationErrors(result.Errors.Select(error => error.Description)));
-
-            return NoContent();
-        }
-
     }
 }

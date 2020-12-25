@@ -1,14 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using shop_backend.Database.Entities;
-using shop_backend.Enums;
 using shop_backend.Services.Interfaces;
 using shop_backend.Services.ReturnObjects;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,10 +15,10 @@ namespace shop_backend.Services
     {
         private readonly string jwtSecret;
         private readonly int jwtLifespan;
-        private readonly UserManager<User> userManager;
-        private readonly SignInManager<User> signInManager;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly SignInManager<IdentityUser> signInManager;
 
-        public AuthService(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
+        public AuthService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IConfiguration configuration)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -44,11 +40,10 @@ namespace shop_backend.Services
             }
             else if (singInResult.Succeeded)
             {
-                var token = GenerateJwtToken(user.Id, user.Role.ToString());
+                var token = GenerateJwtToken(user.Id);
                 return new CustomSignInResult(true, new AuthData 
                 {
                      Email = user.Email,
-                     Role = user.Role.ToString(),
                      Token = token
                 });
             }
@@ -60,19 +55,18 @@ namespace shop_backend.Services
 
         public async Task<IdentityResult> RegisterAsync(string email, string password)
         {
-            var user = new User { UserName = email, Email = email, Role = UserRoles.Customer };
+            var user = new IdentityUser { UserName = email, Email = email };
             return await userManager.CreateAsync(user, password);
         }
 
-        private string GenerateJwtToken(string userId, string userRole)
+        private string GenerateJwtToken(string userId)
         {
             var expirationTime = DateTime.UtcNow.AddSeconds(jwtLifespan);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, userId),
-                    new Claim(ClaimTypes.Role, userRole)
+                    new Claim(ClaimTypes.NameIdentifier, userId)
                 }),
                 Expires = expirationTime,
                 SigningCredentials = new SigningCredentials(
