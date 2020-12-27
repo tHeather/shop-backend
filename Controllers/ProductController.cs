@@ -98,7 +98,7 @@ namespace shop_backend.Controllers
             return Ok(new GetProductViewModel(product));
         }
 
-        [HttpDelete("{id:int}/images{image}")]
+        [HttpDelete("{id:int}/images/{image}")]
         public async Task<ActionResult> DeleteImage(int id, string image)
         {
             var product = await productRespository.GetByIdAsync(id);
