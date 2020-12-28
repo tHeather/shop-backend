@@ -11,9 +11,10 @@ namespace shop_backend.Database.Repositories.Interfaces
     {
         Task<PagedList<Product>> GetAllAsync(int pageNumber, string search, string type, string manufacturer,
             bool isOnDiscount, int? priceMin, int? priceMax, SortType? sortType);
+        Task<List<Product>> GetByIdsAsync(IEnumerable<int> ids);
         Task<Product> GetByIdAsync(int id);
         Task<Product> CreateAsync(CreateProductViewModel createProductViewModel);
-        Task DeleteAsync(int id);
+        Task DeleteAsync(Product product);
         Task UpdateAsync(Product product, UpdateProductViewModel updateProductViewModel);
         Task SaveChangesAsync();
     }

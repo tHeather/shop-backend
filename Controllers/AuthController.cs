@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using shop_backend.Services.Interfaces;
 using shop_backend.Services.ReturnObjects;
 using shop_backend.ViewModels;
@@ -19,13 +20,15 @@ namespace shop_backend.Controllers
         }
 
         [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ValidationErrors), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AuthData>> Login(LoginViewModel loginViewModel)
         {
             var result = await authService.SingInAsync(loginViewModel.Email, loginViewModel.Password);
             if(!result.IsSucceeded)
                 return BadRequest(new ValidationErrors(result.Errors));
 
-            return result.AuthData;
+            return Ok(result.AuthData);
         }
     }
 }

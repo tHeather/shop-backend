@@ -62,6 +62,11 @@ namespace shop_backend.Database.Repositories
             return await PagedList<Product>.Create(result, pageNumber, pageSize);
         }
 
+        public async Task<List<Product>> GetByIdsAsync(IEnumerable<int> ids)
+        {
+            return await context.Products.Where(p => ids.Contains(p.Id)).ToListAsync();
+        }
+
         public async Task<Product> GetByIdAsync(int id)
         {
             return await context.Products.SingleOrDefaultAsync(p => p.Id == id);
@@ -85,9 +90,8 @@ namespace shop_backend.Database.Repositories
             return product;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Product product)
         {
-            var product = await context.Products.SingleOrDefaultAsync(p => p.Id == id);
             context.Remove(product);
             await context.SaveChangesAsync();
         }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace shop_backend.Database.Entities
 {
     public class Product 
@@ -14,5 +16,7 @@ namespace shop_backend.Database.Entities
         public string FirstImage { get; set; }
         public string SecondImage { get; set; }
         public string ThirdImage { get; set; }
+
+        public ICollection<Section> Products { get; set; }
     }
 }

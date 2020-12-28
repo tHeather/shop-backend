@@ -20,5 +20,6 @@
 
   <ItemGroup>
     <Folder Include="Database\Helpers\" />
+    <Folder Include="ViewModels\Section\" />
   </ItemGroup>
 </Project>

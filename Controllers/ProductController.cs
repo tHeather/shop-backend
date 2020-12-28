@@ -59,7 +59,7 @@ namespace shop_backend.Controllers
 
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ValidationErrors), StatusCodes.Status400BadRequest)]
         [ProducesErrorResponseType(typeof(void))]
         public async Task<ActionResult> CreateProduct([FromForm]CreateProductViewModel createProductViewModel)
@@ -71,12 +71,15 @@ namespace shop_backend.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesErrorResponseType(typeof(void))]
         public async Task<ActionResult> DeleteProduct(int id)
         {
-            await productRespository.DeleteAsync(id);
+            var product = await productRespository.GetByIdAsync(id);
+            if (product == null) return NotFound();
+
+            await productRespository.DeleteAsync(product);
 
             return NoContent();
         }
@@ -84,14 +87,13 @@ namespace shop_backend.Controllers
         [HttpPut("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ValidationErrors), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesErrorResponseType(typeof(void))]
         public async Task<ActionResult<GetProductViewModel>> UpdateProduct(int id, [FromForm]UpdateProductViewModel updateProductViewModel)
         {
             var product = await productRespository.GetByIdAsync(id);
-            if (product == null)
-                return BadRequest(new ValidationErrors("Product not found"));
+            if (product == null) return NotFound();
 
             await productRespository.UpdateAsync(product, updateProductViewModel);
 
@@ -99,6 +101,10 @@ namespace shop_backend.Controllers
         }
 
         [HttpDelete("{id:int}/images{image}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesErrorResponseType(typeof(void))]
         public async Task<ActionResult> DeleteImage(int id, string image)
         {
             var product = await productRespository.GetByIdAsync(id);
