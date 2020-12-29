@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace shop_backend.Database.Repositories.Interfaces
 {
-    public interface IThemeRepository
+    public interface IShopSettingsRepository
     {
-        Task<Theme> GetAsync();
-        Task UpdateAsync(UpdateThemeViewModel updateThemeViewModel);
+        Task<ShopSettings> GetAsync();
+        Task UpdateAsync(UpdateShopSettingsViewModel updateThemeViewModel);
     }
 }

@@ -36,7 +36,7 @@ namespace shop_backend.Services
             File.Delete(fullPath);
         }
 
-        public async Task UpdateLogoAsync(IFormFile formFile) 
+        public async Task<string> UpdateLogoAsync(IFormFile formFile) 
         {
             var fileExtension = formFile.ContentType.Split('/').Skip(1).ToArray()[0];
             var fileName = $"logo.{fileExtension}";
@@ -51,6 +51,8 @@ namespace shop_backend.Services
             {
                 await formFile.CopyToAsync(stream);
             }
+
+            return fileName;
         }
     }
 }

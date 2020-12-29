@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using shop_backend.Database.Entities;
+using shop_backend.Database.Entities.Enums;
 using System.Diagnostics.CodeAnalysis;
 
 
@@ -11,7 +12,7 @@ namespace shop_backend.Database
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Section> Sections { get; set; }
-        public DbSet<Theme> Themes { get; set; }
+        public DbSet<ShopSettings> ShopSettings { get; set; }
 
         public ApplicationDbContext([NotNull] DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -19,11 +20,13 @@ namespace shop_backend.Database
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Theme>().HasData(new Theme {
+            builder.Entity<ShopSettings>().HasData(new ShopSettings {
                 Id = 1,
+                Logo = "",
                 LeadingColor = "#002137",
                 SecondaryColor = "#2137ff",
-                TertiaryColor = "#ff2137"
+                TertiaryColor = "#ff2137",
+                Currency = Currency.PLN
             });
 
             builder.Entity<IdentityUser>().HasData(new IdentityUser
