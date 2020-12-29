@@ -17,6 +17,11 @@ namespace shop_backend.Database.Repositories
 
         public async Task<List<Section>> GetAllAsync()
         {
+            return await context.Sections.ToListAsync();
+        }
+
+        public async Task<List<Section>> GetAllWithProductsAsync()
+        {
             return await context.Sections.Include(s => s.Products).ToListAsync();
         }
 

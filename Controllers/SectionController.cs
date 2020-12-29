@@ -30,8 +30,18 @@ namespace shop_backend.Controllers
         [ProducesErrorResponseType(typeof(void))]
         public async Task<ActionResult<IEnumerable<GetSectionViewModel>>> GetSections()
         {
-            var sections = await sectionRepository.GetAllAsync();
+            var sections = await sectionRepository.GetAllWithProductsAsync();
             return Ok(sections.Select(s => new GetSectionViewModel(s)));
+        }
+
+
+        [HttpGet("names")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesErrorResponseType(typeof(void))]
+        public async Task<ActionResult<IEnumerable<GetSectionNameViewModel>>> GetSectionsNames()
+        {
+            var sections = await sectionRepository.GetAllAsync();
+            return Ok(sections.Select(s => new GetSectionNameViewModel(s)));
         }
 
         [HttpGet("{id:int}")]

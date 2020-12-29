@@ -10,6 +10,7 @@ namespace shop_backend.Database.Repositories.Interfaces
         Task<Section> GetById(int id);
         Task DeleteAsync(Section section);
         Task<List<Section>> GetAllAsync();
+        Task<List<Section>> GetAllWithProductsAsync();
         Task UpdateAsync(string title, Section section, ICollection<Product> products);
     }
 }
