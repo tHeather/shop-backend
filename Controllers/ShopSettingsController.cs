@@ -38,11 +38,11 @@ namespace shop_backend.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ValidationErrors), StatusCodes.Status400BadRequest)]
         [ProducesErrorResponseType(typeof(void))]
-        public async Task<ActionResult> UpdateTheme([FromForm] UpdateShopSettingsViewModel updateShopSettingsViewModel)
+        public async Task<ActionResult<GetShopSettingViewModel>> UpdateTheme([FromForm] UpdateShopSettingsViewModel updateShopSettingsViewModel)
         {
-            await shopSettingsRepository.UpdateAsync(updateShopSettingsViewModel);
+          var settings =  await shopSettingsRepository.UpdateAsync(updateShopSettingsViewModel);
 
-            return NoContent();
+            return new GetShopSettingViewModel(settings);
         }
     }
 }
