@@ -7,7 +7,7 @@ namespace shop_backend.Database.Repositories.Interfaces
     public interface ISectionRepository
     {
         Task CreateAsync(string title, ICollection<Product> products);
-        Task<Section> GetById(int id);
+        Task<Section> GetByIdAsync(int id);
         Task DeleteAsync(Section section);
         Task<List<Section>> GetAllAsync();
         Task<List<Section>> GetAllWithProductsAsync();

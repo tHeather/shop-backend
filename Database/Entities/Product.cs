@@ -17,6 +17,6 @@ namespace shop_backend.Database.Entities
         public string SecondImage { get; set; }
         public string ThirdImage { get; set; }
 
-        public ICollection<Section> Products { get; set; }
+        public ICollection<Section> Sections { get; set; }
     }
 }

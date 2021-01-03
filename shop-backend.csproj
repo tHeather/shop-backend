@@ -21,5 +21,6 @@
   <ItemGroup>
     <Folder Include="Database\Helpers\" />
     <Folder Include="ViewModels\Section\" />
+    <Folder Include="ViewModels\Category\" />
   </ItemGroup>
 </Project>

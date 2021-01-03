@@ -50,7 +50,7 @@ namespace shop_backend.Controllers
         [ProducesErrorResponseType(typeof(void))]
         public async Task<ActionResult<GetSectionViewModel>> GetSectionById(int id)
         {
-            var section = await sectionRepository.GetById(id);
+            var section = await sectionRepository.GetByIdAsync(id);
             if (section == null)
                 return NotFound();
 
@@ -81,7 +81,7 @@ namespace shop_backend.Controllers
         [ProducesErrorResponseType(typeof(void))]
         public async Task<ActionResult> UpdateSection(int id, UpdateSectionViewModel updateSectionViewModel)
         {
-            var section = await sectionRepository.GetById(id);
+            var section = await sectionRepository.GetByIdAsync(id);
             if (section == null)
                 return NotFound();
 
@@ -100,7 +100,7 @@ namespace shop_backend.Controllers
         [ProducesErrorResponseType(typeof(void))]
         public async Task<ActionResult> DeleteSection(int id)
         {
-            var section = await sectionRepository.GetById(id);
+            var section = await sectionRepository.GetByIdAsync(id);
             if (section == null)
                 return NotFound();
 

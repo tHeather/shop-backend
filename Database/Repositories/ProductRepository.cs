@@ -138,5 +138,10 @@ namespace shop_backend.Database.Repositories
         {
             await context.SaveChangesAsync();
         }
+
+        public async Task<List<string>> GetAllProductTypes()
+        {
+            return await context.Products.Select(p => p.Type).ToListAsync();
+        }
     }
 }

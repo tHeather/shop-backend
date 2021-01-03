@@ -7,7 +7,6 @@ using shop_backend.Database.Repositories.Interfaces;
 using shop_backend.Services.Interfaces;
 using shop_backend.ViewModels;
 using StudyOnlineServer.ViewModels;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -125,6 +124,17 @@ namespace shop_backend.Controllers
             await productRespository.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpGet("types")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesErrorResponseType(typeof(void))]
+        public async Task<ActionResult<GetProductTypesViewModel>> GetAllProductTypes()
+        {
+            return new GetProductTypesViewModel
+            {
+                Types = await productRespository.GetAllProductTypes()
+            };
         }
     }
 }

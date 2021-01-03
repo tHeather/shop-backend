@@ -25,7 +25,7 @@ namespace shop_backend.Database.Repositories
             return await context.Sections.Include(s => s.Products).ToListAsync();
         }
 
-        public async Task<Section> GetById(int id)
+        public async Task<Section> GetByIdAsync(int id)
         {
             return await context.Sections.Include(s => s.Products).SingleOrDefaultAsync(s => s.Id == id);
         }

@@ -12,6 +12,7 @@ namespace shop_backend.Database
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Section> Sections { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<ShopSettings> ShopSettings { get; set; }
 
         public ApplicationDbContext([NotNull] DbContextOptions<ApplicationDbContext> options) : base(options)

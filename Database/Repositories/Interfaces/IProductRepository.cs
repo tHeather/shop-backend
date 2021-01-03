@@ -17,5 +17,6 @@ namespace shop_backend.Database.Repositories.Interfaces
         Task DeleteAsync(Product product);
         Task UpdateAsync(Product product, UpdateProductViewModel updateProductViewModel);
         Task SaveChangesAsync();
+        Task<List<string>> GetAllProductTypes();
     }
 }
