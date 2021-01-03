@@ -10,6 +10,6 @@ namespace shop_backend.Database.Repositories.Interfaces
     public interface IShopSettingsRepository
     {
         Task<ShopSettings> GetAsync();
-        Task UpdateAsync(UpdateShopSettingsViewModel updateThemeViewModel);
+        Task<ShopSettings> UpdateAsync(UpdateShopSettingsViewModel updateThemeViewModel);
     }
 }

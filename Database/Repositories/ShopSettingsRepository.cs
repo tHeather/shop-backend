@@ -26,7 +26,7 @@ namespace shop_backend.Database.Repositories
             return await context.ShopSettings.SingleOrDefaultAsync();
         }
 
-        public async Task UpdateAsync(UpdateShopSettingsViewModel  updateShopSettingsViewModel)
+        public async Task<ShopSettings> UpdateAsync(UpdateShopSettingsViewModel  updateShopSettingsViewModel)
         {
             var theme = await context.ShopSettings.SingleOrDefaultAsync();
 
@@ -45,6 +45,8 @@ namespace shop_backend.Database.Repositories
             theme.TertiaryColor = updateShopSettingsViewModel.TertiaryColor;
 
             await context.SaveChangesAsync();
+
+            return theme;
         }
     }
 }
