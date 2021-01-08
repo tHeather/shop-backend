@@ -23,5 +23,6 @@
     <Folder Include="ViewModels\Section\" />
     <Folder Include="ViewModels\Category\" />
     <Folder Include="ViewModels\Slider\" />
+    <Folder Include="ViewModels\FooterSettings\" />
   </ItemGroup>
 </Project>

@@ -5,9 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using shop_backend.Database.Repositories.Interfaces;
 using shop_backend.ViewModels;
 using shop_backend.ViewModels.Theme;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace shop_backend.Controllers
@@ -26,7 +23,7 @@ namespace shop_backend.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesErrorResponseType(typeof(void))]
-        public async Task<ActionResult<UpdateShopSettingsViewModel>> GetTheme()
+        public async Task<ActionResult<GetShopSettingViewModel>> GetTheme()
         {
             var theme = await shopSettingsRepository.GetAsync();
 
@@ -40,7 +37,7 @@ namespace shop_backend.Controllers
         [ProducesErrorResponseType(typeof(void))]
         public async Task<ActionResult<GetShopSettingViewModel>> UpdateTheme([FromForm] UpdateShopSettingsViewModel updateShopSettingsViewModel)
         {
-          var settings =  await shopSettingsRepository.UpdateAsync(updateShopSettingsViewModel);
+            var settings =  await shopSettingsRepository.UpdateAsync(updateShopSettingsViewModel);
 
             return new GetShopSettingViewModel(settings);
         }

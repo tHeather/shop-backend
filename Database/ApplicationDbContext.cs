@@ -15,6 +15,7 @@ namespace shop_backend.Database
         public DbSet<Category> Categories { get; set; }
         public DbSet<ShopSettings> ShopSettings { get; set; }
         public DbSet<Slider> Sliders { get; set; }
+        public DbSet<FooterSettings> FooterSettings { get; set; }
 
         public ApplicationDbContext([NotNull] DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -34,11 +35,21 @@ namespace shop_backend.Database
             builder.Entity<Slider>().HasData(new Slider
             {
                 Id = 1,
-                FirstSlide = "",
-                SecondSlide = "",
-                ThirdSlide = "",
-                FourthSlide = "",
-                FifthSlide = ""
+                FirstSlide = string.Empty,
+                SecondSlide = string.Empty,
+                ThirdSlide = string.Empty,
+                FourthSlide = string.Empty,
+                FifthSlide = string.Empty
+            });
+
+            builder.Entity<FooterSettings>().HasData(new FooterSettings
+            {
+                Id = 1,
+                Email = string.Empty,
+                PhoneNumber = string.Empty,
+                Text = string.Empty,
+                WeekendWorkingHours = string.Empty,
+                WeekWorkingHours = string.Empty
             });
 
             builder.Entity<IdentityUser>().HasData(new IdentityUser
