@@ -43,6 +43,7 @@ namespace shop_backend
             services.AddScoped<IShopSettingsRepository, ShopSettingsRepository>();
             services.AddScoped<ISectionRepository, SectionRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ISliderRepository, SliderRepository>();
 
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IAuthService, AuthService>();

@@ -14,6 +14,7 @@ namespace shop_backend.Database
         public DbSet<Section> Sections { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ShopSettings> ShopSettings { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
 
         public ApplicationDbContext([NotNull] DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -28,6 +29,16 @@ namespace shop_backend.Database
                 SecondaryColor = "#2137ff",
                 TertiaryColor = "#ff2137",
                 Currency = Currency.PLN
+            });
+
+            builder.Entity<Slider>().HasData(new Slider
+            {
+                Id = 1,
+                FirstSlide = "",
+                SecondSlide = "",
+                ThirdSlide = "",
+                FourthSlide = "",
+                FifthSlide = ""
             });
 
             builder.Entity<IdentityUser>().HasData(new IdentityUser
