@@ -2,10 +2,7 @@
 using shop_backend.Database.Entities;
 using shop_backend.Database.Repositories.Interfaces;
 using shop_backend.Services.Interfaces;
-using shop_backend.ViewModels.Theme;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using shop_backend.ViewModels;
 using System.Threading.Tasks;
 
 namespace shop_backend.Database.Repositories

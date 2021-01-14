@@ -3,9 +3,9 @@ using shop_backend.Database.Entities.Enums;
 
 namespace shop_backend.ViewModels
 {
-    public class GetShopSettingViewModel
+    public class GetShopSettingsViewModel
     {
-        public GetShopSettingViewModel(ShopSettings shopSettings)
+        public GetShopSettingsViewModel(ShopSettings shopSettings)
         {
             Logo = shopSettings.Logo;
             LeadingColor = shopSettings.LeadingColor;

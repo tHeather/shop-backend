@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using shop_backend.Database.Repositories.Interfaces;
 using shop_backend.ViewModels;
-using shop_backend.ViewModels.Theme;
 using System.Threading.Tasks;
 
 namespace shop_backend.Controllers
@@ -23,11 +22,11 @@ namespace shop_backend.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesErrorResponseType(typeof(void))]
-        public async Task<ActionResult<GetShopSettingViewModel>> GetTheme()
+        public async Task<ActionResult<GetShopSettingsViewModel>> GetTheme()
         {
             var theme = await shopSettingsRepository.GetAsync();
 
-            return Ok(new GetShopSettingViewModel(theme));
+            return Ok(new GetShopSettingsViewModel(theme));
         }
 
         [HttpPut]
@@ -35,11 +34,11 @@ namespace shop_backend.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ValidationErrors), StatusCodes.Status400BadRequest)]
         [ProducesErrorResponseType(typeof(void))]
-        public async Task<ActionResult<GetShopSettingViewModel>> UpdateTheme([FromForm] UpdateShopSettingsViewModel updateShopSettingsViewModel)
+        public async Task<ActionResult<GetShopSettingsViewModel>> UpdateTheme([FromForm] UpdateShopSettingsViewModel updateShopSettingsViewModel)
         {
             var settings =  await shopSettingsRepository.UpdateAsync(updateShopSettingsViewModel);
 
-            return new GetShopSettingViewModel(settings);
+            return new GetShopSettingsViewModel(settings);
         }
     }
 }

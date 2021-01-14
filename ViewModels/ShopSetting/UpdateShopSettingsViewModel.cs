@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using shop_backend.Attributes;
 using shop_backend.Database.Entities.Enums;
 
-namespace shop_backend.ViewModels.Theme
+namespace shop_backend.ViewModels
 {
     public class UpdateShopSettingsViewModel
     {

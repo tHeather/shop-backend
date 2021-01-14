@@ -16,6 +16,8 @@ namespace shop_backend.Database
         public DbSet<ShopSettings> ShopSettings { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<FooterSettings> FooterSettings { get; set; }
+        public DbSet<PurchaseSettings> PurchaseSettings { get; set; }
+        public DbSet<PersonalPickupBranch> PersonalPickupBranches { get; set; }
 
         public ApplicationDbContext([NotNull] DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -50,6 +52,17 @@ namespace shop_backend.Database
                 Text = string.Empty,
                 WeekendWorkingHours = string.Empty,
                 WeekWorkingHours = string.Empty
+            });
+
+            builder.Entity<PurchaseSettings>().HasData(new PurchaseSettings
+            {
+                Id = 1,
+                IsShippingAvaible = true,
+                IsPersonalPickupAvaible = false,
+                IsCashAvaible = false,
+                IsDotpayAvaible = false,
+                IsTransferAvaible = true,
+                TransferNumber = "Testing transfer number"
             });
 
             builder.Entity<IdentityUser>().HasData(new IdentityUser

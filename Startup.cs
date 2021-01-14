@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using SendGrid.Extensions.DependencyInjection;
 using shop_backend.Database;
 using shop_backend.Database.Repositories;
 using shop_backend.Database.Repositories.Interfaces;
@@ -45,9 +46,17 @@ namespace shop_backend
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ISliderRepository, SliderRepository>();
             services.AddScoped<IFooterSettingsRepository, FooterSettingsRepository>();
+            services.AddScoped<IPurchaseSettingsRepository, PurchaseSettingsRepository>();
+            services.AddScoped<IPersonalPickupBranchRepository, PersonalPickupBranchRepository>();
 
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IDotPayService, DotPayService>();
+            services.AddScoped<SendgridService, SendgridService>();
+            services.AddSendGrid(options =>
+            {
+                options.ApiKey = Configuration[ConfigurationKeys.SENDGRID_API_KEY];
+            });
 
             services.AddControllers(options => {
                 options.Filters.Add(new ProducesResponseTypeAttribute(typeof(string), StatusCodes.Status500InternalServerError));
