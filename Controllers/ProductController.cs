@@ -99,7 +99,7 @@ namespace shop_backend.Controllers
             return Ok(new GetProductViewModel(product));
         }
 
-        [HttpDelete("{id:int}/images{image}")]
+        [HttpDelete("{id:int}/images/{image}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
