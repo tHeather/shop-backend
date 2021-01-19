@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using shop_backend.Database;
 
 namespace shop_backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210119201020_Add order entity missing field")]
+    partial class Addorderentitymissingfield
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,9 +139,9 @@ namespace shop_backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ab79135c-3417-43a7-9505-cc6395739979",
+                            Id = "a522bbef-13b8-4f52-9ab0-273aad012d3d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "55a307e8-0d15-4a00-9a6b-f1cb1a24e069",
+                            ConcurrencyStamp = "c7e94a21-6904-43df-8bd1-739624573389",
                             Email = "admin@test.pl",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -147,7 +149,7 @@ namespace shop_backend.Migrations
                             NormalizedUserName = "ADMIN@TEST.PL",
                             PasswordHash = "AQAAAAEAACcQAAAAEOYBeJPoRPDerQ65Eyj6pmLGeMTpwjMPKvtmAKI8bbn0eykfamwp5dlh+h2mlcTyBw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7c4b955b-1656-4228-8bc1-248bbe5ad542",
+                            SecurityStamp = "abe2823f-4344-4891-ae47-dcbd76b1c65f",
                             TwoFactorEnabled = false,
                             UserName = "admin@test.pl"
                         });
@@ -314,14 +316,8 @@ namespace shop_backend.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("DeliveryMethod")
                         .HasColumnType("int");
-
-                    b.Property<string>("DotPayOperationNumber")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmailAddress")
                         .HasColumnType("nvarchar(max)");
@@ -329,13 +325,10 @@ namespace shop_backend.Migrations
                     b.Property<string>("Firstname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OrderStatus")
-                        .HasColumnType("int");
-
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PersonalPickupBranchId")
+                    b.Property<int>("PersonalPickupBranchId")
                         .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
@@ -343,9 +336,6 @@ namespace shop_backend.Migrations
 
                     b.Property<string>("PostalCode")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
 
                     b.Property<string>("Products")
                         .HasColumnType("nvarchar(max)");
@@ -632,7 +622,9 @@ namespace shop_backend.Migrations
                 {
                     b.HasOne("shop_backend.Database.Entities.PersonalPickupBranch", "PersonalPickupBranch")
                         .WithMany()
-                        .HasForeignKey("PersonalPickupBranchId");
+                        .HasForeignKey("PersonalPickupBranchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("PersonalPickupBranch");
                 });

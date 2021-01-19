@@ -14,27 +14,18 @@ namespace shop_backend.Services
         private readonly string supportMailAddress;
         private readonly ISendGridClient sendGridClient;
 
-        public SendgridService(IConfiguration configuration, ISendGridClient sendGridClient)
+        public SendgridService(ISendGridClient sendGridClient)
         {
-            supportMailAddress = configuration[Constants.SUPPORT_MAIL_ADDRESS] ?? throw new ArgumentNullException("No support mail address provided");
+            supportMailAddress = Constants.SUPPORT_MAIL_ADDRESS ?? throw new ArgumentNullException("No support mail address provided");
             this.sendGridClient = sendGridClient ?? throw new ArgumentNullException(nameof(sendGridClient));
         }
 
-        public async Task SendPasswordResetLink(string recipientMail, string resetLink)
+        public async Task SendOrderConfirmationEmail(string recipientMail, string message)
         {
-            var result = await SendMailTextAsync(supportMailAddress, recipientMail, "Reset Password", resetLink);
-            if (!result)
-                throw new EmailFailedToSendException("Error occured while trying to send email");
+            await SendMailTextAsync(supportMailAddress, recipientMail, "Order successful", message);
         }
 
-        public async Task SendConfirmEmailAddressLink(string recipientMail, string confirmationLink)
-        {
-            var result = await SendMailTextAsync(supportMailAddress, recipientMail, "Confirm Email Address", confirmationLink);
-            if(!result)
-                throw new EmailFailedToSendException("Error occured while trying to send email");
-        }
-
-        private async Task<bool> SendMailTextAsync(string senderEmail, string recipientMail,string subject, string message)
+        private async Task<bool> SendMailTextAsync(string senderEmail, string recipientMail, string subject, string message)
         {
             var msg = new SendGridMessage();
             msg.SetFrom(senderEmail);

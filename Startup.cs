@@ -48,11 +48,12 @@ namespace shop_backend
             services.AddScoped<IFooterSettingsRepository, FooterSettingsRepository>();
             services.AddScoped<IPurchaseSettingsRepository, PurchaseSettingsRepository>();
             services.AddScoped<IPersonalPickupBranchRepository, PersonalPickupBranchRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IDotPayService, DotPayService>();
-            services.AddScoped<SendgridService, SendgridService>();
+            services.AddScoped<ISendgridService, SendgridService>();
             services.AddSendGrid(options =>
             {
                 options.ApiKey = Configuration[ConfigurationKeys.SENDGRID_API_KEY];

@@ -108,10 +108,10 @@ namespace shop_backend.Controllers
         {
             var product = await productRespository.GetByIdAsync(id);
             if (product.FirstImage != image && product.SecondImage != image && product.ThirdImage != image)
-                return BadRequest(new ValidationErrors("Image not found"));
+                return NotFound(new ValidationErrors("Product not found"));
 
             if (!imageService.ImageExists(image))
-                return BadRequest(new ValidationErrors("Image not found"));
+                return NotFound(new ValidationErrors("Image not found"));
 
             if (product.FirstImage == image)
                 product.FirstImage = null;

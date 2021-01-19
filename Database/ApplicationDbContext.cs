@@ -18,6 +18,7 @@ namespace shop_backend.Database
         public DbSet<FooterSettings> FooterSettings { get; set; }
         public DbSet<PurchaseSettings> PurchaseSettings { get; set; }
         public DbSet<PersonalPickupBranch> PersonalPickupBranches { get; set; }
+        public DbSet<Order> Order { get; set; }
 
         public ApplicationDbContext([NotNull] DbContextOptions<ApplicationDbContext> options) : base(options)
         {

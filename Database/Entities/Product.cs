@@ -6,7 +6,7 @@ namespace shop_backend.Database.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public  string  Type  { get; set; }
+        public string Type { get; set; }
         public string Manufacturer { get; set; }
         public string Description { get; set; }
         public int Quantity { get; set; }
@@ -18,5 +18,14 @@ namespace shop_backend.Database.Entities
         public string ThirdImage { get; set; }
 
         public ICollection<Section> Sections { get; set; }
+    }
+
+    public class OrderProduct
+    {
+        public string Name { get; set; }
+        public string Manufacturer { get; set; }
+        public int Quantity { get; set; }
+        public int Price { get; set; }
+        public string FirstImage { get; set; }
     }
 }

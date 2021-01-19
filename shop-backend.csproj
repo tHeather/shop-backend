@@ -29,5 +29,7 @@
     <Folder Include="Exceptions\" />
     <Folder Include="ViewModels\PurchaseSettings\" />
     <Folder Include="ViewModels\PersonalPickupBranch\" />
+    <Folder Include="ViewModels\Order\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 </Project>

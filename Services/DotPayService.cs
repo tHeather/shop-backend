@@ -23,7 +23,7 @@ namespace shop_backend.Services
             dotpayShopPin = configuration[ConfigurationKeys.DOTPAY_SHOP_PIN] ?? throw new ArgumentNullException(dotpayShopPin);
         }
 
-        public string CreatePaymentTransactionUri(Guid transactionId, int amount, string userEmail, string callbackUrl)
+        public string CreatePaymentTransactionUri(int transactionId, int amount, string userEmail, string callbackUrl)
         {
             var paymentParams = new Dictionary<string, string>()
             {
