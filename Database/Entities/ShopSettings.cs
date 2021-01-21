@@ -16,7 +16,11 @@ namespace shop_backend.Database.Entities
 
         public string SecondaryColor { get; set; }
 
-        public string TertiaryColor { get; set; }
+        public string NavbarColor { get; set; }
+
+        public string BackgroundColor { get; set; }
+
+        public string FooterColor { get; set; }
 
         public Currency Currency { get; set; }
     }

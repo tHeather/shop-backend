@@ -39,7 +39,9 @@ namespace shop_backend.Database.Repositories
 
             theme.LeadingColor = updateShopSettingsViewModel.LeadingColor;
             theme.SecondaryColor = updateShopSettingsViewModel.SecondaryColor;
-            theme.TertiaryColor = updateShopSettingsViewModel.TertiaryColor;
+            theme.NavbarColor = updateShopSettingsViewModel.NavbarColor;
+            theme.BackgroundColor = updateShopSettingsViewModel.BackgroundColor;
+            theme.FooterColor = updateShopSettingsViewModel.FooterColor;
 
             await context.SaveChangesAsync();
 

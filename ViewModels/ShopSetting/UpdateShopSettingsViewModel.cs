@@ -17,7 +17,15 @@ namespace shop_backend.ViewModels
 
         [Required]
         [ColorValidation]
-        public string TertiaryColor { get; set; }
+        public string NavbarColor { get; set; }
+
+        [Required]
+        [ColorValidation]
+        public string BackgroundColor { get; set; }
+
+        [Required]
+        [ColorValidation]
+        public string FooterColor { get; set; }
 
         public IFormFile Logo { get; set; }
 

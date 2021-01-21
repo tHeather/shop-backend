@@ -29,9 +29,11 @@ namespace shop_backend.Database
             builder.Entity<ShopSettings>().HasData(new ShopSettings {
                 Id = 1,
                 Logo = "",
-                LeadingColor = "#002137",
-                SecondaryColor = "#2137ff",
-                TertiaryColor = "#ff2137",
+                NavbarColor = "#ffffff",
+                BackgroundColor = "#ffffff",
+                FooterColor = "#f1f1f1",
+                SecondaryColor = "#f1f1f1",
+                LeadingColor = "#02d463",
                 Currency = Currency.PLN
             });
 

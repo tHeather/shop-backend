@@ -10,7 +10,9 @@ namespace shop_backend.ViewModels
             Logo = shopSettings.Logo;
             LeadingColor = shopSettings.LeadingColor;
             SecondaryColor = shopSettings.SecondaryColor;
-            TertiaryColor = shopSettings.TertiaryColor;
+            NavbarColor = shopSettings.NavbarColor;
+            BackgroundColor = shopSettings.BackgroundColor;
+            FooterColor = shopSettings.FooterColor;
             Currency = shopSettings.Currency;
         }
 
@@ -20,7 +22,11 @@ namespace shop_backend.ViewModels
 
         public string SecondaryColor { get; set; }
 
-        public string TertiaryColor { get; set; }
+        public string NavbarColor { get; set; }
+
+        public string BackgroundColor { get; set; }
+
+        public string FooterColor { get; set; }
 
         public Currency Currency { get; set; }
     }
