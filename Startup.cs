@@ -38,7 +38,7 @@ namespace shop_backend
         {
             //Database config
             services.AddDbContext<ApplicationDbContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString(ConfigurationKeys.MSSQL_CONNECTION_STRING)));
 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IShopSettingsRepository, ShopSettingsRepository>();

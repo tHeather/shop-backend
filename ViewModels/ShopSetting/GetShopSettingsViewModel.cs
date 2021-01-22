@@ -7,21 +7,18 @@ namespace shop_backend.ViewModels
     {
         public GetShopSettingsViewModel(ShopSettings shopSettings)
         {
+            Theme = shopSettings.Theme;
             Logo = shopSettings.Logo;
-            LeadingColor = shopSettings.LeadingColor;
-            SecondaryColor = shopSettings.SecondaryColor;
-            TertiaryColor = shopSettings.TertiaryColor;
             Currency = shopSettings.Currency;
+            Regulations = shopSettings.Regulations;
         }
+
+        public Theme Theme { get; set; }
 
         public string Logo { get; set; }
 
-        public string LeadingColor { get; set; }
-
-        public string SecondaryColor { get; set; }
-
-        public string TertiaryColor { get; set; }
-
         public Currency Currency { get; set; }
+
+        public string Regulations { get; set; }
     }
 }

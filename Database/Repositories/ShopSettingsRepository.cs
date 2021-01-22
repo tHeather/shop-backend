@@ -3,6 +3,8 @@ using shop_backend.Database.Entities;
 using shop_backend.Database.Repositories.Interfaces;
 using shop_backend.Services.Interfaces;
 using shop_backend.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace shop_backend.Database.Repositories
@@ -20,7 +22,7 @@ namespace shop_backend.Database.Repositories
 
         public async Task<ShopSettings> GetAsync()
         {
-            return await context.ShopSettings.SingleOrDefaultAsync();
+            return await context.ShopSettings.Include(sp => sp.Theme).SingleOrDefaultAsync();
         }
 
         public async Task<ShopSettings> UpdateAsync(UpdateShopSettingsViewModel  updateShopSettingsViewModel)
@@ -37,13 +39,25 @@ namespace shop_backend.Database.Repositories
                 theme.Currency = updateShopSettingsViewModel.Currency.Value;
             }
 
-            theme.LeadingColor = updateShopSettingsViewModel.LeadingColor;
-            theme.SecondaryColor = updateShopSettingsViewModel.SecondaryColor;
-            theme.TertiaryColor = updateShopSettingsViewModel.TertiaryColor;
+            if(string.IsNullOrEmpty(updateShopSettingsViewModel.Regulations))
+            {
+                theme.Regulations = updateShopSettingsViewModel.Regulations;
+            }
+
+            theme.ThemeId = updateShopSettingsViewModel.ThemeId;
 
             await context.SaveChangesAsync();
 
             return theme;
         }
+
+        public async Task<List<GetThemeViewModel>> GetAllThemes()
+        {
+            return await context.Themes.Select(t => new GetThemeViewModel
+            {
+                Id = t.Id,
+                Name = t.Name
+            }).ToListAsync();
+        } 
     }
 }

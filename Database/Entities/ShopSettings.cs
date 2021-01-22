@@ -10,14 +10,14 @@ namespace shop_backend.Database.Entities
     {
         public int Id { get; set; }
 
+        public int ThemeId { get; set; }
+
         public string Logo { get; set; }
 
-        public string LeadingColor { get; set; }
-
-        public string SecondaryColor { get; set; }
-
-        public string TertiaryColor { get; set; }
-
         public Currency Currency { get; set; }
+
+        public string Regulations { get; set; }
+
+        public Theme Theme { get; set; }
     }
 }

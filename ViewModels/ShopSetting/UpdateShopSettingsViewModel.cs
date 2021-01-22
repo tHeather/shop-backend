@@ -8,16 +8,9 @@ namespace shop_backend.ViewModels
     public class UpdateShopSettingsViewModel
     {
         [Required]
-        [ColorValidation]
-        public string LeadingColor { get; set; }
+        public int ThemeId { get; set; }
 
-        [Required]
-        [ColorValidation]
-        public string SecondaryColor { get; set; }
-
-        [Required]
-        [ColorValidation]
-        public string TertiaryColor { get; set; }
+        public string Regulations { get; set; }
 
         public IFormFile Logo { get; set; }
 

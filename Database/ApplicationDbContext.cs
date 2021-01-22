@@ -19,6 +19,7 @@ namespace shop_backend.Database
         public DbSet<PurchaseSettings> PurchaseSettings { get; set; }
         public DbSet<PersonalPickupBranch> PersonalPickupBranches { get; set; }
         public DbSet<Order> Order { get; set; }
+        public DbSet<Theme> Themes { get; set; }
 
         public ApplicationDbContext([NotNull] DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -26,12 +27,26 @@ namespace shop_backend.Database
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Theme>().HasData(new Theme
+            {
+                Id = 1,
+                Name = "Green, grey and white",
+                SecondaryBackgroundColor = "#f1f1f1",
+                SecondaryTextColor = "#000000",
+                LeadingBackgroundColor = "#02d463",
+                LeadingTextColor = "#000000",
+                NavbarBackgroundColor = "#ffffff",
+                NavbarTextColor = "#000000",
+                MainBackgroundColor = "#ffffff",
+                MainTextColor = "#000000",
+                FooterBackgroundColor = "#ffffff",
+                FooterTextColor = "#000000",
+            });
+
             builder.Entity<ShopSettings>().HasData(new ShopSettings {
                 Id = 1,
+                ThemeId = 1,
                 Logo = "",
-                LeadingColor = "#002137",
-                SecondaryColor = "#2137ff",
-                TertiaryColor = "#ff2137",
                 Currency = Currency.PLN
             });
 

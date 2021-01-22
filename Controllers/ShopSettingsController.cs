@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using shop_backend.Database.Repositories.Interfaces;
 using shop_backend.ViewModels;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace shop_backend.Controllers
@@ -22,7 +23,7 @@ namespace shop_backend.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesErrorResponseType(typeof(void))]
-        public async Task<ActionResult<GetShopSettingsViewModel>> GetTheme()
+        public async Task<ActionResult<GetShopSettingsViewModel>> GetSettings()
         {
             var theme = await shopSettingsRepository.GetAsync();
 
@@ -34,11 +35,20 @@ namespace shop_backend.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ValidationErrors), StatusCodes.Status400BadRequest)]
         [ProducesErrorResponseType(typeof(void))]
-        public async Task<ActionResult<GetShopSettingsViewModel>> UpdateTheme([FromForm] UpdateShopSettingsViewModel updateShopSettingsViewModel)
+        public async Task<ActionResult<GetShopSettingsViewModel>> UpdateSettings([FromForm] UpdateShopSettingsViewModel updateShopSettingsViewModel)
         {
             var settings =  await shopSettingsRepository.UpdateAsync(updateShopSettingsViewModel);
 
             return new GetShopSettingsViewModel(settings);
+        }
+
+        [HttpGet("themes")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesErrorResponseType(typeof(void))]
+        public async Task<ActionResult<IEnumerable<GetThemeViewModel>>> GetThemes()
+        {
+            return Ok(await shopSettingsRepository.GetAllThemes());
         }
     }
 }
