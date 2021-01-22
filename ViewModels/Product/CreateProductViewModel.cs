@@ -8,11 +8,11 @@ namespace shop_backend.ViewModels
     public class CreateProductViewModel 
     {
         [Required]
-        [MaxLength(100)]
+        [MaxLength(75)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(40)]
         public string Type { get; set; }
 
         [Required]
@@ -20,11 +20,11 @@ namespace shop_backend.ViewModels
         public string Manufacturer { get; set; }
 
         [Required]
-        [MaxLength(300)]
+        [MaxLength(2000)]
         public string Description { get; set; }
 
         [Required]
-        [Range(0, 10000)]
+        [Range(1, 10000)]
         public int Quantity { get; set; }
 
         [Required]
@@ -34,7 +34,7 @@ namespace shop_backend.ViewModels
         [Required]
         public bool IsOnDiscount { get; set; }
 
-        [Range(1, 999999)]
+        [Range(1, 1000000)]
         [IsProductOnDiscountValidation("IsOnDiscount")]
         public int? DiscountPrice { get; set; }
 

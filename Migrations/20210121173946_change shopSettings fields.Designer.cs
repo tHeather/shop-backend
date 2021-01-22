@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using shop_backend.Database;
 
 namespace shop_backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210121173946_change shopSettings fields")]
+    partial class changeshopSettingsfields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,9 +139,9 @@ namespace shop_backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e634f84c-3cd0-4441-a6e5-bc351d0045a4",
+                            Id = "5efbbb10-445a-4141-9011-ae5afcc332da",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7684c30b-3347-490b-8f8c-61a23e3b6c53",
+                            ConcurrencyStamp = "2abe40c3-42df-4d08-ab4a-65ecc4ef50f5",
                             Email = "admin@test.pl",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -147,7 +149,7 @@ namespace shop_backend.Migrations
                             NormalizedUserName = "ADMIN@TEST.PL",
                             PasswordHash = "AQAAAAEAACcQAAAAEOYBeJPoRPDerQ65Eyj6pmLGeMTpwjMPKvtmAKI8bbn0eykfamwp5dlh+h2mlcTyBw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "833466f7-5def-4166-9ff0-470cfc6c34f4",
+                            SecurityStamp = "5a7dceb4-fb0d-49b4-93c4-100fca00c284",
                             TwoFactorEnabled = false,
                             UserName = "admin@test.pl"
                         });
@@ -499,18 +501,22 @@ namespace shop_backend.Migrations
                     b.Property<int>("Currency")
                         .HasColumnType("int");
 
+                    b.Property<string>("FooterColor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LeadingColor")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Logo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Regulations")
+                    b.Property<string>("NavbarColor")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ThemeId")
-                        .HasColumnType("int");
+                    b.Property<string>("SecondaryColor")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ThemeId");
 
                     b.ToTable("ShopSettings");
 
@@ -520,8 +526,11 @@ namespace shop_backend.Migrations
                             Id = 1,
                             BackgroundColor = "#ffffff",
                             Currency = 0,
+                            FooterColor = "#f1f1f1",
+                            LeadingColor = "#02d463",
                             Logo = "",
-                            ThemeId = 1
+                            NavbarColor = "#ffffff",
+                            SecondaryColor = "#f1f1f1"
                         });
                 });
 
@@ -560,68 +569,6 @@ namespace shop_backend.Migrations
                             FourthSlide = "",
                             SecondSlide = "",
                             ThirdSlide = ""
-                        });
-                });
-
-            modelBuilder.Entity("shop_backend.Database.Entities.Theme", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("FooterBackgroundColor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FooterTextColor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeadingBackgroundColor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeadingTextColor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MainBackgroundColor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MainTextColor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NavbarBackgroundColor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NavbarTextColor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SecondaryBackgroundColor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SecondaryTextColor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Themes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FooterBackgroundColor = "#ffffff",
-                            FooterTextColor = "#000000",
-                            LeadingBackgroundColor = "#02d463",
-                            LeadingTextColor = "#000000",
-                            MainBackgroundColor = "#ffffff",
-                            MainTextColor = "#000000",
-                            Name = "Green, grey and white",
-                            NavbarBackgroundColor = "#ffffff",
-                            NavbarTextColor = "#000000",
-                            SecondaryBackgroundColor = "#f1f1f1",
-                            SecondaryTextColor = "#000000"
                         });
                 });
 
@@ -698,17 +645,6 @@ namespace shop_backend.Migrations
                         .HasForeignKey("PersonalPickupBranchId");
 
                     b.Navigation("PersonalPickupBranch");
-                });
-
-            modelBuilder.Entity("shop_backend.Database.Entities.ShopSettings", b =>
-                {
-                    b.HasOne("shop_backend.Database.Entities.Theme", "Theme")
-                        .WithMany()
-                        .HasForeignKey("ThemeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Theme");
                 });
 #pragma warning restore 612, 618
         }
