@@ -60,6 +60,19 @@ namespace shop_backend.Database.Repositories
                 Id = t.Id,
                 Name = t.Name
             }).ToListAsync();
-        } 
+        }
+
+        public async Task<bool> DeleteLogo()
+        {
+            var settings = await context.ShopSettings.SingleOrDefaultAsync();
+            if (settings.Logo == null) return false;
+            if (!imageService.ImageExists(settings.Logo)) return false;
+
+            imageService.DeleteFile(settings.Logo);
+            await context.SaveChangesAsync();
+
+            return true;
+        }
+
     }
 }

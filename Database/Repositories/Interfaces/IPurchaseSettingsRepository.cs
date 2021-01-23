@@ -8,5 +8,6 @@ namespace shop_backend.Database.Repositories.Interfaces
     {
         Task<PurchaseSettings> GetAsync();
         Task UpdateAsync(PurchaseSettings purchaseSettings, UpdatePurchaseSettingsViewModel updatePurchaseSettingsViewModel);
+
     }
 }
