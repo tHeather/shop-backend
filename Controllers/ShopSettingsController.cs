@@ -43,7 +43,6 @@ namespace shop_backend.Controllers
         }
 
         [HttpGet("themes")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesErrorResponseType(typeof(void))]
         public async Task<ActionResult<IEnumerable<GetThemeViewModel>>> GetThemes()
