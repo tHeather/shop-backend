@@ -48,6 +48,8 @@ namespace shop_backend.Database.Repositories
 
             await context.SaveChangesAsync();
 
+            theme.Theme = await context.Themes.SingleOrDefaultAsync(t => t.Id == theme.ThemeId);
+
             return theme;
         }
 

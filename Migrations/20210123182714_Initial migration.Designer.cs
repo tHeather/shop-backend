@@ -10,8 +10,8 @@ using shop_backend.Database;
 namespace shop_backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210108173815_Add footer settings entity")]
-    partial class Addfootersettingsentity
+    [Migration("20210123182714_Initial migration")]
+    partial class Initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,7 +19,7 @@ namespace shop_backend.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "5.0.2");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -139,9 +139,9 @@ namespace shop_backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6541c257-ddfc-4ae2-a2fb-21bb59a80970",
+                            Id = "479292d0-ec35-4cec-9854-a3a6bfd9cdd2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "48f43195-a5e9-48d2-89de-8724101ccb25",
+                            ConcurrencyStamp = "6451a422-268d-4e61-851f-572a629fe221",
                             Email = "admin@test.pl",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -149,7 +149,7 @@ namespace shop_backend.Migrations
                             NormalizedUserName = "ADMIN@TEST.PL",
                             PasswordHash = "AQAAAAEAACcQAAAAEOYBeJPoRPDerQ65Eyj6pmLGeMTpwjMPKvtmAKI8bbn0eykfamwp5dlh+h2mlcTyBw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "20f28b7c-9603-4b8b-8dcd-f170a83b311f",
+                            SecurityStamp = "b82cb0b9-0bb9-48f6-8c0f-3f42a88d8953",
                             TwoFactorEnabled = false,
                             UserName = "admin@test.pl"
                         });
@@ -306,6 +306,86 @@ namespace shop_backend.Migrations
                         });
                 });
 
+            modelBuilder.Entity("shop_backend.Database.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DeliveryMethod")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DotPayOperationNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmailAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Firstname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PaymentMethod")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PersonalPickupBranchId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Products")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonalPickupBranchId");
+
+                    b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("shop_backend.Database.Entities.PersonalPickupBranch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PersonalPickupBranches");
+                });
+
             modelBuilder.Entity("shop_backend.Database.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -351,6 +431,48 @@ namespace shop_backend.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("shop_backend.Database.Entities.PurchaseSettings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<bool>("IsCashAvaible")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDotpayAvaible")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPersonalPickupAvaible")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsShippingAvaible")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsTransferAvaible")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TransferNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PurchaseSettings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsCashAvaible = false,
+                            IsDotpayAvaible = false,
+                            IsPersonalPickupAvaible = false,
+                            IsShippingAvaible = true,
+                            IsTransferAvaible = true,
+                            TransferNumber = "Testing transfer number"
+                        });
+                });
+
             modelBuilder.Entity("shop_backend.Database.Entities.Section", b =>
                 {
                     b.Property<int>("Id")
@@ -376,19 +498,18 @@ namespace shop_backend.Migrations
                     b.Property<int>("Currency")
                         .HasColumnType("int");
 
-                    b.Property<string>("LeadingColor")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Logo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SecondaryColor")
+                    b.Property<string>("Regulations")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TertiaryColor")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ThemeId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ThemeId");
 
                     b.ToTable("ShopSettings");
 
@@ -397,10 +518,8 @@ namespace shop_backend.Migrations
                         {
                             Id = 1,
                             Currency = 0,
-                            LeadingColor = "#002137",
                             Logo = "",
-                            SecondaryColor = "#2137ff",
-                            TertiaryColor = "#ff2137"
+                            ThemeId = 1
                         });
                 });
 
@@ -439,6 +558,68 @@ namespace shop_backend.Migrations
                             FourthSlide = "",
                             SecondSlide = "",
                             ThirdSlide = ""
+                        });
+                });
+
+            modelBuilder.Entity("shop_backend.Database.Entities.Theme", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("FooterBackgroundColor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FooterTextColor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LeadingBackgroundColor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LeadingTextColor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MainBackgroundColor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MainTextColor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NavbarBackgroundColor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NavbarTextColor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecondaryBackgroundColor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecondaryTextColor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Themes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FooterBackgroundColor = "#ffffff",
+                            FooterTextColor = "#000000",
+                            LeadingBackgroundColor = "#02d463",
+                            LeadingTextColor = "#000000",
+                            MainBackgroundColor = "#ffffff",
+                            MainTextColor = "#000000",
+                            Name = "Green, grey and white",
+                            NavbarBackgroundColor = "#ffffff",
+                            NavbarTextColor = "#000000",
+                            SecondaryBackgroundColor = "#f1f1f1",
+                            SecondaryTextColor = "#000000"
                         });
                 });
 
@@ -506,6 +687,26 @@ namespace shop_backend.Migrations
                         .HasForeignKey("SectionsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("shop_backend.Database.Entities.Order", b =>
+                {
+                    b.HasOne("shop_backend.Database.Entities.PersonalPickupBranch", "PersonalPickupBranch")
+                        .WithMany()
+                        .HasForeignKey("PersonalPickupBranchId");
+
+                    b.Navigation("PersonalPickupBranch");
+                });
+
+            modelBuilder.Entity("shop_backend.Database.Entities.ShopSettings", b =>
+                {
+                    b.HasOne("shop_backend.Database.Entities.Theme", "Theme")
+                        .WithMany()
+                        .HasForeignKey("ThemeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Theme");
                 });
 #pragma warning restore 612, 618
         }
