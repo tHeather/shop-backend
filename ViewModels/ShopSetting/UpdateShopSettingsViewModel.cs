@@ -10,7 +10,7 @@ namespace shop_backend.ViewModels
         [Required]
         public int ThemeId { get; set; }
 
-        public string Regulations { get; set; }
+        public IFormFile Regulations { get; set; }
 
         public IFormFile Logo { get; set; }
 

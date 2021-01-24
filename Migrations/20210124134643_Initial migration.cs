@@ -374,7 +374,7 @@ namespace shop_backend.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "479292d0-ec35-4cec-9854-a3a6bfd9cdd2", 0, "6451a422-268d-4e61-851f-572a629fe221", "admin@test.pl", false, false, null, "ADMIN@TEST.PL", "ADMIN@TEST.PL", "AQAAAAEAACcQAAAAEOYBeJPoRPDerQ65Eyj6pmLGeMTpwjMPKvtmAKI8bbn0eykfamwp5dlh+h2mlcTyBw==", null, false, "b82cb0b9-0bb9-48f6-8c0f-3f42a88d8953", false, "admin@test.pl" });
+                values: new object[] { "2bbe6dd9-920d-44a2-9186-7fc371d1b440", 0, "aeb7d937-120c-4a46-8ad3-6bbe181b92a8", "admin@test.pl", false, false, null, "ADMIN@TEST.PL", "ADMIN@TEST.PL", "AQAAAAEAACcQAAAAEOYBeJPoRPDerQ65Eyj6pmLGeMTpwjMPKvtmAKI8bbn0eykfamwp5dlh+h2mlcTyBw==", null, false, "17b22f12-1dc2-4ffa-bec4-d0ef33886374", false, "admin@test.pl" });
 
             migrationBuilder.InsertData(
                 table: "FooterSettings",
@@ -399,7 +399,7 @@ namespace shop_backend.Migrations
             migrationBuilder.InsertData(
                 table: "ShopSettings",
                 columns: new[] { "Id", "Currency", "Logo", "Regulations", "ThemeId" },
-                values: new object[] { 1, 0, "", null, 1 });
+                values: new object[] { 1, 0, "", "", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

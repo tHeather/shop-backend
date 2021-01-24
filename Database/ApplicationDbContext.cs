@@ -47,6 +47,7 @@ namespace shop_backend.Database
                 Id = 1,
                 ThemeId = 1,
                 Logo = "",
+                Regulations="",
                 Currency = Currency.PLN
             });
 

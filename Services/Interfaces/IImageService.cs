@@ -8,6 +8,6 @@ namespace shop_backend.Services.Interfaces
         bool ImageExists(string fileName);
         Task<string> SaveImageAsync(IFormFile formFile);
         void DeleteFile(string fileName);
-        Task<string> UpdateLogoAsync(IFormFile formFile);
+        Task<string> UpdateFileAsync(IFormFile formFile, string fileName);
     }
 }

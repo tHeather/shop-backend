@@ -31,7 +31,7 @@ namespace shop_backend.Database.Repositories
 
             if (updateShopSettingsViewModel.Logo != null)
             {
-                theme.Logo = await imageService.UpdateLogoAsync(updateShopSettingsViewModel.Logo);
+                theme.Logo = await imageService.UpdateFileAsync(updateShopSettingsViewModel.Logo,"logo");
             }
 
             if(updateShopSettingsViewModel.Currency.HasValue)
@@ -39,9 +39,9 @@ namespace shop_backend.Database.Repositories
                 theme.Currency = updateShopSettingsViewModel.Currency.Value;
             }
 
-            if(string.IsNullOrEmpty(updateShopSettingsViewModel.Regulations))
+            if (updateShopSettingsViewModel.Regulations != null)
             {
-                theme.Regulations = updateShopSettingsViewModel.Regulations;
+                theme.Regulations = await imageService.UpdateFileAsync(updateShopSettingsViewModel.Regulations, "regulations");
             }
 
             theme.ThemeId = updateShopSettingsViewModel.ThemeId;
@@ -65,10 +65,24 @@ namespace shop_backend.Database.Repositories
         public async Task<bool> DeleteLogo()
         {
             var settings = await context.ShopSettings.SingleOrDefaultAsync();
-            if (settings.Logo == null) return false;
+            if (settings.Logo == "") return false;
             if (!imageService.ImageExists(settings.Logo)) return false;
 
             imageService.DeleteFile(settings.Logo);
+            settings.Logo = "";
+            await context.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> DeleteRegulations()
+        {
+            var settings = await context.ShopSettings.SingleOrDefaultAsync();
+            if (settings.Regulations == "") return false;
+            if (!imageService.ImageExists(settings.Regulations)) return false;
+
+            imageService.DeleteFile(settings.Regulations);
+            settings.Regulations = "";
             await context.SaveChangesAsync();
 
             return true;

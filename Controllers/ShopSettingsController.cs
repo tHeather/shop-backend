@@ -50,7 +50,7 @@ namespace shop_backend.Controllers
             return Ok(await shopSettingsRepository.GetAllThemes());
         }
 
-        [HttpDelete("Logo")]
+        [HttpDelete("logo")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesErrorResponseType(typeof(void))]
@@ -58,6 +58,18 @@ namespace shop_backend.Controllers
         {
            if(!await shopSettingsRepository.DeleteLogo())
                 return NotFound(new ValidationErrors("Logo not found."));
+
+            return NoContent();
+        }
+
+        [HttpDelete("regulations")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesErrorResponseType(typeof(void))]
+        public async Task<ActionResult> DeleteRegulations()
+        {
+            if (!await shopSettingsRepository.DeleteRegulations())
+                return NotFound(new ValidationErrors("Regulations not found."));
 
             return NoContent();
         }

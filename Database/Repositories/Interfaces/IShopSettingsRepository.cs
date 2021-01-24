@@ -10,7 +10,7 @@ namespace shop_backend.Database.Repositories.Interfaces
         Task<ShopSettings> GetAsync();
         Task<ShopSettings> UpdateAsync(UpdateShopSettingsViewModel updateShopSettingsViewModel);
         Task<List<GetThemeViewModel>> GetAllThemes();
-
         Task<bool> DeleteLogo();
+        Task<bool> DeleteRegulations();
     }
 }

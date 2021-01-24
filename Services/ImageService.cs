@@ -36,11 +36,11 @@ namespace shop_backend.Services
             File.Delete(fullPath);
         }
 
-        public async Task<string> UpdateLogoAsync(IFormFile formFile) 
+        public async Task<string> UpdateFileAsync(IFormFile formFile, string fileName) 
         {
             var fileExtension = formFile.ContentType.Split('/').Skip(1).ToArray()[0];
-            var fileName = $"logo.{fileExtension}";
-            var logoPath = Path.Combine(filesRootFolderPath, fileName);
+            var fileNameWithExtension = $"{fileName}.{fileExtension}";
+            var logoPath = Path.Combine(filesRootFolderPath, fileNameWithExtension);
 
             if(File.Exists(logoPath))
             {
@@ -52,7 +52,7 @@ namespace shop_backend.Services
                 await formFile.CopyToAsync(stream);
             }
 
-            return fileName;
+            return fileNameWithExtension;
         }
     }
 }
