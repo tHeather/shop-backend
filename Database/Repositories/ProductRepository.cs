@@ -31,8 +31,10 @@ namespace shop_backend.Database.Repositories
                 SortType.nameAscending => context.Products.OrderBy(p => p.Name),
                 SortType.quantityAscending => context.Products.OrderBy(p => p.Quantity),
                 SortType.priceAscending => context.Products.OrderBy(p => p.Price),
+                SortType.nameDescending => context.Products.OrderByDescending(p => p.Name),
                 SortType.quantityDescending => context.Products.OrderByDescending(p => p.Quantity),
                 SortType.priceDescending => context.Products.OrderByDescending(p => p.Price),
+               
                 _ => context.Products.OrderByDescending(p => p.Name),
             };
 

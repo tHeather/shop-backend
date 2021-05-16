@@ -31,5 +31,6 @@
     <Folder Include="ViewModels\PersonalPickupBranch\" />
     <Folder Include="ViewModels\Order\" />
     <Folder Include="Extensions\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 </Project>
